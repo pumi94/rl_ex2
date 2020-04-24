@@ -124,14 +124,24 @@ def value_iteration(mdp, gamma, nIt):
 
 
 GAMMA = 0.95  # we'll be using this same value in subsequent problems
-Vs_VI, pis_VI = value_iteration(mdp, gamma=GAMMA, nIt=200)
+Vs_VI, pis_VI = value_iteration(mdp, gamma=GAMMA, nIt=10)
 
 #################################
 # Below is code for illustrating the progress of value iteration.
 # Your optimal actions are shown by arrows.
 # At the bottom, the value of the different states are plotted.
 
-for (V, pi) in zip(Vs_VI[:100], pis_VI[:100]):
+plt.figure()
+for s in range(mdp.nS)[:8]:
+    v_s = [v_i[s] for v_i in Vs_VI]
+    plt.plot(v_s, label=str(s))
+plt.legend()
+plt.title('state value to iteration')
+plt.savefig('first 8 state value to iteration')
+
+i = 0
+for (V, pi) in zip(Vs_VI[:10], pis_VI[:10]):
+    i += 1
     plt.figure(figsize=(3, 3))
     plt.imshow(V.reshape(4, 4), cmap='gray', interpolation='none', clim=(0, 1))
     ax = plt.gca()
@@ -145,10 +155,10 @@ for (V, pi) in zip(Vs_VI[:100], pis_VI[:100]):
     for y in range(4):
         for x in range(4):
             a = Pi[y, x]
-            u, v = a2uv[a]
-            plt.arrow(x, y, u * .3, -v * .3, color='m', head_width=0.1, head_length=0.1)
+            u, v_s = a2uv[a]
+            plt.arrow(x, y, u * .3, -v_s * .3, color='m', head_width=0.1, head_length=0.1)
             plt.text(x, y, str(env.desc[y, x].item().decode()),
                      color='g', size=12, verticalalignment='center',
                      horizontalalignment='center', fontweight='bold')
     plt.grid(color='b', lw=2, ls='-')
-    plt.show()
+    # plt.savefig('policy{}.png'.format(i+1))
