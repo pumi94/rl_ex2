@@ -124,7 +124,7 @@ def value_iteration(mdp, gamma, nIt):
 
 
 GAMMA = 0.95  # we'll be using this same value in subsequent problems
-Vs_VI, pis_VI = value_iteration(mdp, gamma=GAMMA, nIt=10)
+Vs_VI, pis_VI = value_iteration(mdp, gamma=GAMMA, nIt=100)
 
 #################################
 # Below is code for illustrating the progress of value iteration.
@@ -132,15 +132,15 @@ Vs_VI, pis_VI = value_iteration(mdp, gamma=GAMMA, nIt=10)
 # At the bottom, the value of the different states are plotted.
 
 plt.figure()
-for s in range(mdp.nS)[:8]:
+for s in range(mdp.nS):
     v_s = [v_i[s] for v_i in Vs_VI]
     plt.plot(v_s, label=str(s))
 plt.legend()
 plt.title('state value to iteration')
-plt.savefig('first 8 state value to iteration')
+# plt.savefig('plots/q1/state value to iteration')
 
 i = 0
-for (V, pi) in zip(Vs_VI[:10], pis_VI[:10]):
+for (V, pi) in zip(Vs_VI[:100], pis_VI[:100]):
     i += 1
     plt.figure(figsize=(3, 3))
     plt.imshow(V.reshape(4, 4), cmap='gray', interpolation='none', clim=(0, 1))
@@ -161,4 +161,4 @@ for (V, pi) in zip(Vs_VI[:10], pis_VI[:10]):
                      color='g', size=12, verticalalignment='center',
                      horizontalalignment='center', fontweight='bold')
     plt.grid(color='b', lw=2, ls='-')
-    # plt.savefig('policy{}.png'.format(i+1))
+    plt.savefig('plots/q1/policy{}.png'.format(i))
