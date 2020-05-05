@@ -161,4 +161,5 @@ for (V, pi) in zip(Vs_VI[:100], pis_VI[:100]):
                      color='g', size=12, verticalalignment='center',
                      horizontalalignment='center', fontweight='bold')
     plt.grid(color='b', lw=2, ls='-')
-    plt.savefig('plots/q1/policy{}.png'.format(i))
+    plt.title('policy{}'.format(i))
+    # plt.savefig('plots/q1/policy{}.png'.format(i))
